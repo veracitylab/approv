@@ -52,6 +52,14 @@
         <Class IRI="#Database"/>
         <Class IRI="http://www.w3.org/ns/prov#Entity"/>
     </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Data"/>
+        <Class IRI="http://www.w3.org/ns/prov#Enity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Program"/>
+        <Class IRI="http://www.w3.org/ns/prov#Agent"/>
+    </SubClassOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#wroteDataToDB"/>
         <ObjectProperty IRI="http://www.w3.org/ns/prov#used"/>
