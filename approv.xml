@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <Ontology xmlns="http://www.w3.org/2002/07/owl#"
-     xml:base="http://example.com/myOntology"
+     xml:base="https://veracity.wgtn.ac.nz/app-provenance"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      ontologyIRI="https://veracity.wgtn.ac.nz/app-provenance">
-    <Prefix name="" IRI="https://veracity.wgtn.ac.nz/app-provenance"/>
+    <Prefix name="" IRI="http://example.com/myOntology"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
@@ -16,64 +16,106 @@
     <Prefix name="approv" IRI="https://veracity.wgtn.ac.nz/app-provenance"/>
     <Import>http://www.w3.org/ns/prov</Import>
     <Declaration>
-        <Class IRI="#DBAccess"/>
+        <Class IRI="http://example.com/myOntology#DBAccess"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#DBRead"/>
+        <Class IRI="http://example.com/myOntology#DBRead"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#DBWrite"/>
+        <Class IRI="http://example.com/myOntology#DBWrite"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Data"/>
+        <Class IRI="http://example.com/myOntology#Data"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Database"/>
+        <Class IRI="http://example.com/myOntology#Database"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Program"/>
+        <Class IRI="http://example.com/myOntology#Program"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#wroteDataToDB"/>
+        <Class IRI="#HttpAccess"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#HttpGet"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#HttpPost"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://example.com/myOntology#readDataFromDB"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://example.com/myOntology#wroteDataToDB"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.w3.org/ns/prov#Enity"/>
     </Declaration>
     <SubClassOf>
-        <Class IRI="#DBAccess"/>
+        <Class IRI="http://example.com/myOntology#DBAccess"/>
         <Class IRI="http://www.w3.org/ns/prov#Activity"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#DBRead"/>
-        <Class IRI="#DBAccess"/>
+        <Class IRI="http://example.com/myOntology#DBRead"/>
+        <Class IRI="http://example.com/myOntology#DBAccess"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#DBWrite"/>
-        <Class IRI="#DBAccess"/>
+        <Class IRI="http://example.com/myOntology#DBWrite"/>
+        <Class IRI="http://example.com/myOntology#DBAccess"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Database"/>
-        <Class IRI="http://www.w3.org/ns/prov#Entity"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#Data"/>
+        <Class IRI="http://example.com/myOntology#Data"/>
         <Class IRI="http://www.w3.org/ns/prov#Enity"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Program"/>
+        <Class IRI="http://example.com/myOntology#Database"/>
+        <Class IRI="http://www.w3.org/ns/prov#Entity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://example.com/myOntology#Program"/>
         <Class IRI="http://www.w3.org/ns/prov#Agent"/>
     </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HttpAccess"/>
+        <Class IRI="http://www.w3.org/ns/prov#Activity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HttpGet"/>
+        <Class IRI="#HttpAccess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HttpPost"/>
+        <Class IRI="#HttpAccess"/>
+    </SubClassOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#wroteDataToDB"/>
+        <ObjectProperty IRI="http://example.com/myOntology#readDataFromDB"/>
+        <ObjectProperty IRI="http://www.w3.org/ns/prov#used"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://example.com/myOntology#wroteDataToDB"/>
         <ObjectProperty IRI="http://www.w3.org/ns/prov#used"/>
     </SubObjectPropertyOf>
     <FunctionalObjectProperty>
-        <ObjectProperty IRI="#wroteDataToDB"/>
+        <ObjectProperty IRI="http://example.com/myOntology#readDataFromDB"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="http://example.com/myOntology#wroteDataToDB"/>
     </FunctionalObjectProperty>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#wroteDataToDB"/>
-        <Class IRI="#DBWrite"/>
+        <ObjectProperty IRI="http://example.com/myOntology#readDataFromDB"/>
+        <Class IRI="http://example.com/myOntology#DBRead"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://example.com/myOntology#wroteDataToDB"/>
+        <Class IRI="http://example.com/myOntology#DBWrite"/>
     </ObjectPropertyDomain>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#wroteDataToDB"/>
-        <Class IRI="#Database"/>
+        <ObjectProperty IRI="http://example.com/myOntology#readDataFromDB"/>
+        <Class IRI="http://example.com/myOntology#Database"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://example.com/myOntology#wroteDataToDB"/>
+        <Class IRI="http://example.com/myOntology#Database"/>
     </ObjectPropertyRange>
 </Ontology>
 
