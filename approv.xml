@@ -50,6 +50,9 @@
         <Class IRI="#Database"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#NetworkResource"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#Program"/>
     </Declaration>
     <Declaration>
@@ -98,8 +101,12 @@
         <Class IRI="http://www.w3.org/ns/prov#Entity"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#NetworkResource"/>
+        <Class IRI="http://www.w3.org/ns/prov#Entity"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#Data"/>
-        <Class IRI="http://www.w3.org/ns/prov#Enity"/>
+        <Class IRI="http://www.w3.org/ns/prov#Entity"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Program"/>
@@ -120,6 +127,103 @@
         <ObjectProperty IRI="#wroteDataToDB"/>
         <Class IRI="#Database"/>
     </ObjectPropertyRange>
+
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#readDataToDB"/>
+        <ObjectProperty IRI="http://www.w3.org/ns/prov#used"/>
+    </SubObjectPropertyOf>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#readDataFromDB"/>
+    </FunctionalObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#readDataFromDB"/>
+        <Class IRI="#DBRead"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#readDataFromDB"/>
+        <Class IRI="#Database"/>
+    </ObjectPropertyRange>
+
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#deletedDataFromDB"/>
+        <ObjectProperty IRI="#wroteDataToDB"/>
+    </SubObjectPropertyOf>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#deletedDataFromDB"/>
+    </FunctionalObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#deletedDataFromDB"/>
+        <Class IRI="#DBDelete"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#readDataFromDB"/>
+        <Class IRI="#Database"/>
+    </ObjectPropertyRange>
+
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#insertedDataIntoDB"/>
+        <ObjectProperty IRI="#wroteDataToDB"/>
+    </SubObjectPropertyOf>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#insertedDataIntoDB"/>
+    </FunctionalObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#insertedDataIntoDB"/>
+        <Class IRI="#DBInsert"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#insertedDataIntoDB"/>
+        <Class IRI="#Database"/>
+    </ObjectPropertyRange>
+
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#updatedDataInDB"/>
+        <ObjectProperty IRI="#wroteDataToDB"/>
+    </SubObjectPropertyOf>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#updatedDataInDB"/>
+    </FunctionalObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#updatedDataInDB"/>
+        <Class IRI="#DBUpdate"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#updatedDataInDB"/>
+        <Class IRI="#Database"/>
+    </ObjectPropertyRange>
+
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#wroteDataToNetwork"/>
+        <ObjectProperty IRI="http://www.w3.org/ns/prov#used"/>
+    </SubObjectPropertyOf>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#wroteDataToNetwork"/>
+    </FunctionalObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#wroteDataToNetwork"/>
+        <Class IRI="#NetworkWrite"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#wroteDataToNetwork"/>
+        <Class IRI="#NetworkResource"/>
+    </ObjectPropertyRange>
+
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#readDataFromNetwork"/>
+        <ObjectProperty IRI="http://www.w3.org/ns/prov#used"/>
+    </SubObjectPropertyOf>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#readDataFromNetwork"/>
+    </FunctionalObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#readDataFromNetwork"/>
+        <Class IRI="#NetworkRead"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#readDataFromNetwork"/>
+        <Class IRI="#NetworkResource"/>
+    </ObjectPropertyRange>
+
 </Ontology>
 
 

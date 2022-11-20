@@ -118,7 +118,20 @@
 		</excutions>
 	</map>
 
-
+	<!-- mappings for various http APIs -->
+	<map group="http">
+		<activity>approve:NetworkAccess</activity>
+		<excutions>
+			<excution>
+				<declared-method>
+					<owner>java.net.URLConnection</owner>
+					<name>connect</name>
+					<name>()V</name>
+				</declared-method>
+			</excution>
+		</excutions>
+	</map>
+	<!-- more todo -> 
 
 </binding>
 
