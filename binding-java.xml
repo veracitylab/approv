@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<binding xmlns="https://veracity.wgtn.ac.nz/binding/" xml:approve="https://veracity.wgtn.ac.nz/app-provenance/1.0.0">	<version>
+		<major>0</major>
+		<minor>0</minor>
+		<patch>1</patch>
+		<label></label>
+	</version>
+	<target>java</target>	
+
+
+	<!-- mapping for database access via jdbc -->
+	<map group="jdbc">
+		<activity>approve:DBAccess</activity>
+		<excutions>
+			<excution>
+				<declared-method>
+					<owner>java.sql.DriverManager</owner>
+					<name>getConnection</name>
+				</declared-method>
+			</excution>
+			<excution>
+				<declared-method>
+					<owner>java.sql.Statement</owner>
+					<name>execute*</name>
+				</declared-method>
+			</excution>
+			<excution>
+				<declared-method>
+					<owner>java.sql.PreparedStatement</owner>
+					<name>execute*</name>
+				</declared-method>
+			</excution>
+		</excutions>
+	</map>
+	<map group="jdbc">
+		<activity>approve:DBRead</activity>
+		<excutions>
+			<excution>
+				<declared-method>
+					<owner>java.sql.ResultSet</owner>
+					<name>next</name>
+					<descriptor>()Z</descriptor>
+				</declared-method>
+			</excution>
+			<excution>
+				<declared-method>
+					<owner>java.sql.ResultSet</owner>
+					<name>get*</name>
+				</declared-method>
+			</excution>
+			<excution>
+				<declared-method>
+					<owner>java.sql.Statement</owner>
+					<name>executeQuery</name>
+					<descriptor>(Ljava/lang/String;)Ljava/sql/ResultSet;</descriptor>
+				</declared-method>
+			</excution>
+			<excution>
+				<declared-method>
+					<owner>java.sql.PreparedStatement</owner>
+					<name>executeQuery</name>
+					<descriptor>()Ljava/sql/ResultSet;</descriptor>
+				</declared-method>
+			</excution>
+		</excutions>
+	</map>
+	<map group="jdbc">
+		<activity>approve:DBWrite</activity>
+		<excutions>
+			<excution>
+				<declared-method>
+					<owner>java.sql.Statement</owner>
+					<name>executeUpdate*</name>
+				</declared-method>
+			</excution>
+			<excution>
+				<declared-method>
+					<owner>java.sql.PreparedStatement</owner>
+					<name>executeUpdate()</name>
+					<descriptor>()I</descriptor>
+				</declared-method>
+			</excution>
+		</excutions>
+	</map>
+	<map group="jdbc">
+		<activity>approve:DBDelete</activity>
+		<excutions>
+			<excution>
+				<declared-method>
+					<owner>java.sql.ResultSet</owner>
+					<name>deleteRow</name>
+					<descriptor>()V</descriptor>
+				</declared-method>
+			</excution>
+		</excutions>
+	</map>
+	<map group="jdbc">
+		<activity>approve:DBInsert</activity>
+		<excutions>
+			<excution>
+				<declared-method>
+					<owner>java.sql.ResultSet</owner>
+					<name>insertRow</name>
+					<descriptor>()V</descriptor>
+				</declared-method>
+			</excution>
+		</excutions>
+	</map>
+	<map group="jdbc">
+		<activity>approve:DBUpdate</activity>
+		<excutions>
+			<excution>
+				<declared-method>
+					<owner>java.sql.ResultSet</owner>
+					<name>update*</name>
+				</declared-method>
+			</excution>
+		</excutions>
+	</map>
+
+
+
+</binding>
+
