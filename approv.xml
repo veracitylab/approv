@@ -19,10 +19,29 @@
         <Class IRI="#DBAccess"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#NetworkAccess"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#NetworkRead"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#NetworkWrite"/>
+    </Declaration>
+
+    <Declaration>
         <Class IRI="#DBRead"/>
     </Declaration>
     <Declaration>
         <Class IRI="#DBWrite"/>
+    </Declaration>
+        <Declaration>
+        <Class IRI="#DBInsert"/>
+    </Declaration>
+        <Declaration>
+        <Class IRI="#DBDelete"/>
+    </Declaration>
+        <Declaration>
+        <Class IRI="#DBUpdate"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Data"/>
@@ -48,6 +67,32 @@
         <Class IRI="#DBWrite"/>
         <Class IRI="#DBAccess"/>
     </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DBInsert"/>
+        <Class IRI="#DBWrite"/>
+    </SubClassOf>
+        <SubClassOf>
+        <Class IRI="#DBDelete"/>
+        <Class IRI="#DBWrite"/>
+    </SubClassOf>
+        <SubClassOf>
+        <Class IRI="#DBUpdate"/>
+        <Class IRI="#DBWrite"/>
+    </SubClassOf>
+
+    <SubClassOf>
+        <Class IRI="#NetworkAccess"/>
+        <Class IRI="http://www.w3.org/ns/prov#Activity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#NetworkRead"/>
+        <Class IRI="#NetworkAccess"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#NetworkWrite"/>
+        <Class IRI="#NetworkAccess"/>
+    </SubClassOf>
+
     <SubClassOf>
         <Class IRI="#Database"/>
         <Class IRI="http://www.w3.org/ns/prov#Entity"/>
