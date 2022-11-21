@@ -16,18 +16,21 @@
 					<owner>java.sql.DriverManager</owner>
 					<name>getConnection</name>
 				</declared-method>
+				<entity>return</entity>
 			</execution>
 			<execution>
 				<declared-method>
 					<owner>java.sql.Statement</owner>
 					<name>execute*</name>
 				</declared-method>
+				<entity>this</entity>
 			</execution>
 			<execution>
 				<declared-method>
 					<owner>java.sql.PreparedStatement</owner>
 					<name>execute*</name>
 				</declared-method>
+				<entity>this</entity>
 			</execution>
 		</executions>
 	</map-activity>
@@ -40,12 +43,14 @@
 					<name>next</name>
 					<descriptor>()Z</descriptor>
 				</declared-method>
+				<entity>this</entity>
 			</execution>
 			<execution>
 				<declared-method>
 					<owner>java.sql.ResultSet</owner>
 					<name>get*</name>
 				</declared-method>
+				<entity>this</entity>
 			</execution>
 			<execution>
 				<declared-method>
@@ -53,6 +58,7 @@
 					<name>executeQuery</name>
 					<descriptor>(Ljava/lang/String;)Ljava/sql/ResultSet;</descriptor>
 				</declared-method>
+				<entity>this</entity>
 			</execution>
 			<execution>
 				<declared-method>
@@ -60,6 +66,7 @@
 					<name>executeQuery</name>
 					<descriptor>()Ljava/sql/ResultSet;</descriptor>
 				</declared-method>
+				<entity>this</entity>
 			</execution>
 		</executions>
 	</map-activity>
@@ -71,9 +78,7 @@
 					<owner>java.sql.Statement</owner>
 					<name>executeUpdate*</name>
 				</declared-method>
-				<entity>
-					this
-				</entity>
+				<entity>this</entity>
 			</execution>
 			<execution>
 				<declared-method>
@@ -81,6 +86,7 @@
 					<name>executeUpdate()</name>
 					<descriptor>()I</descriptor>
 				</declared-method>
+				<entity>this</entity>
 			</execution>
 		</executions>
 	</map-activity>
@@ -93,6 +99,7 @@
 					<name>deleteRow</name>
 					<descriptor>()V</descriptor>
 				</declared-method>
+				<entity>this</entity>
 			</execution>
 		</executions>
 	</map-activity>
@@ -105,6 +112,7 @@
 					<name>insertRow</name>
 					<descriptor>()V</descriptor>
 				</declared-method>
+				<entity>this</entity>
 			</execution>
 		</executions>
 	</map-activity>
@@ -116,6 +124,7 @@
 					<owner>java.sql.ResultSet</owner>
 					<name>update*</name>
 				</declared-method>
+				<entity>this</entity>
 			</execution>
 		</executions>
 	</map-activity>
@@ -130,6 +139,7 @@
 					<name>connect</name>
 					<descriptor>()V</descriptor>
 				</declared-method>
+				<entity>this</entity>
 			</execution>
 		</executions>
 	</map-activity>
@@ -186,7 +196,7 @@
 				</id>	
 			</execution>
 		</executions>
-	</map-entity>
+	</map-entity>	
 
 	<!-- propagate entities --> 
 	<map-entity group="jdbc">
@@ -196,6 +206,57 @@
 				<declared-method>
 					<owner>java.sql.Connection</owner>
 					<name>createStatement</name>
+				</declared-method>
+				<from> 
+					<reference>this</reference>
+				</from>	
+				<to> 
+					<reference>return</reference>
+				</to>	
+			</propagation>
+			<propagation>
+				<declared-method>
+					<owner>java.sql.Connection</owner>
+					<name>prepareStatement</name>
+				</declared-method>
+				<from> 
+					<reference>this</reference>
+				</from>	
+				<to> 
+					<reference>return</reference>
+				</to>	
+			</propagation>
+			<propagation>
+				<declared-method>
+					<owner>java.sql.Statement</owner>
+					<name>executeQuery</name>
+					<description>(Ljava/lang/String;)Ljava/sql/ResultSet;</description>
+				</declared-method>
+				<from> 
+					<reference>this</reference>
+				</from>	
+				<to> 
+					<reference>return</reference>
+				</to>	
+			</propagation>
+			<propagation>
+				<declared-method>
+					<owner>java.sql.Statement</owner>
+					<name>getResultSet</name>
+					<description>()Ljava/sql/ResultSet;</description>
+				</declared-method>
+				<from> 
+					<reference>this</reference>
+				</from>	
+				<to> 
+					<reference>return</reference>
+				</to>	
+			</propagation>
+			<propagation>
+				<declared-method>
+					<owner>java.sql.PreparedStatement</owner>
+					<name>executeQuery</name>
+					<description>()Ljava/sql/ResultSet;</description>
 				</declared-method>
 				<from> 
 					<reference>this</reference>
