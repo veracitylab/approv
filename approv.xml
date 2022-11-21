@@ -129,7 +129,7 @@
     </ObjectPropertyRange>
 
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#readDataToDB"/>
+        <ObjectProperty IRI="#readDataFromDB"/>
         <ObjectProperty IRI="http://www.w3.org/ns/prov#used"/>
     </SubObjectPropertyOf>
     <FunctionalObjectProperty>

@@ -7,131 +7,205 @@
 	</version>
 	<target>java</target>	
 
-
 	<!-- mapping for database access via jdbc -->
-	<map group="jdbc">
+	<map-activity group="jdbc">
 		<activity>approve:DBAccess</activity>
-		<excutions>
-			<excution>
+		<executions>
+			<execution>
 				<declared-method>
 					<owner>java.sql.DriverManager</owner>
 					<name>getConnection</name>
 				</declared-method>
-			</excution>
-			<excution>
+			</execution>
+			<execution>
 				<declared-method>
 					<owner>java.sql.Statement</owner>
 					<name>execute*</name>
 				</declared-method>
-			</excution>
-			<excution>
+			</execution>
+			<execution>
 				<declared-method>
 					<owner>java.sql.PreparedStatement</owner>
 					<name>execute*</name>
 				</declared-method>
-			</excution>
-		</excutions>
-	</map>
-	<map group="jdbc">
+			</execution>
+		</executions>
+	</map-activity>
+	<map-activity group="jdbc">
 		<activity>approve:DBRead</activity>
-		<excutions>
-			<excution>
+		<executions>
+			<execution>
 				<declared-method>
 					<owner>java.sql.ResultSet</owner>
 					<name>next</name>
 					<descriptor>()Z</descriptor>
 				</declared-method>
-			</excution>
-			<excution>
+			</execution>
+			<execution>
 				<declared-method>
 					<owner>java.sql.ResultSet</owner>
 					<name>get*</name>
 				</declared-method>
-			</excution>
-			<excution>
+			</execution>
+			<execution>
 				<declared-method>
 					<owner>java.sql.Statement</owner>
 					<name>executeQuery</name>
 					<descriptor>(Ljava/lang/String;)Ljava/sql/ResultSet;</descriptor>
 				</declared-method>
-			</excution>
-			<excution>
+			</execution>
+			<execution>
 				<declared-method>
 					<owner>java.sql.PreparedStatement</owner>
 					<name>executeQuery</name>
 					<descriptor>()Ljava/sql/ResultSet;</descriptor>
 				</declared-method>
-			</excution>
-		</excutions>
-	</map>
-	<map group="jdbc">
+			</execution>
+		</executions>
+	</map-activity>
+	<map-activity group="jdbc">
 		<activity>approve:DBWrite</activity>
-		<excutions>
-			<excution>
+		<executions>
+			<execution>
 				<declared-method>
 					<owner>java.sql.Statement</owner>
 					<name>executeUpdate*</name>
 				</declared-method>
-			</excution>
-			<excution>
+				<entity>
+					this
+				</entity>
+			</execution>
+			<execution>
 				<declared-method>
 					<owner>java.sql.PreparedStatement</owner>
 					<name>executeUpdate()</name>
 					<descriptor>()I</descriptor>
 				</declared-method>
-			</excution>
-		</excutions>
-	</map>
-	<map group="jdbc">
+			</execution>
+		</executions>
+	</map-activity>
+	<map-activity group="jdbc">
 		<activity>approve:DBDelete</activity>
-		<excutions>
-			<excution>
+		<executions>
+			<execution>
 				<declared-method>
 					<owner>java.sql.ResultSet</owner>
 					<name>deleteRow</name>
 					<descriptor>()V</descriptor>
 				</declared-method>
-			</excution>
-		</excutions>
-	</map>
-	<map group="jdbc">
+			</execution>
+		</executions>
+	</map-activity>
+	<map-activity group="jdbc">
 		<activity>approve:DBInsert</activity>
-		<excutions>
-			<excution>
+		<executions>
+			<execution>
 				<declared-method>
 					<owner>java.sql.ResultSet</owner>
 					<name>insertRow</name>
 					<descriptor>()V</descriptor>
 				</declared-method>
-			</excution>
-		</excutions>
-	</map>
-	<map group="jdbc">
+			</execution>
+		</executions>
+	</map-activity>
+	<map-activity group="jdbc">
 		<activity>approve:DBUpdate</activity>
-		<excutions>
-			<excution>
+		<executions>
+			<execution>
 				<declared-method>
 					<owner>java.sql.ResultSet</owner>
 					<name>update*</name>
 				</declared-method>
-			</excution>
-		</excutions>
-	</map>
+			</execution>
+		</executions>
+	</map-activity>
 
 	<!-- mappings for various http APIs -->
-	<map group="http">
+	<map-activity group="http">
 		<activity>approve:NetworkAccess</activity>
-		<excutions>
-			<excution>
+		<executions>
+			<execution>
 				<declared-method>
 					<owner>java.net.URLConnection</owner>
 					<name>connect</name>
-					<name>()V</name>
+					<descriptor>()V</descriptor>
 				</declared-method>
-			</excution>
-		</excutions>
-	</map>
-	<!-- more todo -> 
+			</execution>
+		</executions>
+	</map-activity>
+
+	<map-activity group="http">
+		<activity>approve:NetworkAccess</activity>
+		<executions>
+			<execution>
+				<declared-method>
+					<owner>org.apache.http.client.HttpClient</owner>
+					<name>execute</name>
+				</declared-method>
+			</execution>
+		</executions>
+	</map-activity>
+
+	<map-activity group="http">
+		<activity>approve:NetworkRead</activity>
+		<executions>
+			<execution>
+				<declared-method>
+					<owner>org.apache.http.client.HttpClient</owner>
+					<name>execute</name>
+				<!-- condition to be evaluated at call site -->
+					<constraint>
+						<reference>arg</reference>
+						<reference-param>*</reference-param> <!-- any parameter -->
+						<predicate>type</predicate>
+						<parameter>org.apache.http.client.methods.HttpGet</parameter>
+					</constraint>
+				</declared-method>
+			</execution>
+		</executions>
+	</map-activity>
+
+	<!-- register entities --> 
+	<map-entity group="jdbc">
+		<entity>approve:Database</entity>
+		<executions>
+			<!-- primary recording -->
+			<execution>
+				<declared-method>
+					<owner>java.sql.DriverManager</owner>
+					<name>getConnection</name>
+					<descriptor>(Ljava/sql/String;*)Ljava/sql/Connection;</descriptor>
+				</declared-method>
+				<name> 
+					<reference>arg</reference>
+					<reference-param>1</reference-param>
+				</name>	
+				<id> 
+					<reference>return</reference>
+					<kind>systemhash</kind>   <!-- use System::identityHashCode -->
+				</id>	
+			</execution>
+		</executions>
+	</map-entity>
+
+	<!-- propagate entities --> 
+	<map-entity group="jdbc">
+		<entity>approve:Database</entity>
+		<propagations>
+			<propagation>
+				<declared-method>
+					<owner>java.sql.Connection</owner>
+					<name>createStatement</name>
+				</declared-method>
+				<from> 
+					<reference>this</reference>
+				</from>	
+				<to> 
+					<reference>return</reference>
+				</to>	
+			</propagation>
+		</propagations>
+	</map-entity>
+
 
 </binding>
-
