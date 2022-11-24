@@ -1,5 +1,4 @@
 {
-  "$schema": "https://veracity.wgtn.ac.nz/binding/#",
   "title": "bindings",
   "description": "approv binding to a programming language",
   "type": "object",
@@ -35,7 +34,8 @@
                     },
                     "name": {
                       "description":"the name of the function",
-                      "type":"regex"
+                      "type":"string",
+                      "format": "regex"
                     },
                     "signature": {
                       "description":"the signature or descriptor of the function",

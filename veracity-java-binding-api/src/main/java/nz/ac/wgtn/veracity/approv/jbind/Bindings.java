@@ -64,7 +64,7 @@ public class Bindings {
                     executions.add(execution);
                 }
                 map.setExecutions(Collections.unmodifiableList(executions));
-                activityMappings.add(map);
+                activityMappings2.add(map);
             }
         }
 
