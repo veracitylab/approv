@@ -83,7 +83,7 @@
 			<execution>
 				<declared-method>
 					<owner>java.sql.PreparedStatement</owner>
-					<name>executeUpdate()</name>
+					<name>executeUpdate</name>
 					<descriptor>()I</descriptor>
 				</declared-method>
 				<entity>this</entity>

@@ -1,0 +1,67 @@
+{
+  "$schema": "https://veracity.wgtn.ac.nz/binding/#",
+  "title": "bindings",
+  "description": "approv binding to a programming language",
+  "type": "object",
+  "properties": {
+    "activity-mappings": {
+      "description":"associates events encountered during program execution with activities",
+      "type":"array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "activity": {
+            "description":"a reference to an activity type defines in approv",
+            "type":"string",
+            "format":"uri"
+          },
+          "group": {
+            "description":"binding scan be grouped, for instance bindings related to database access can be placed into one group",
+            "type":"string"
+          },
+          "executions": {
+            "description":"this defines program executions to be mapped",
+            "type":"array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "call": {
+                  "description":"the execution of a function -- for virtual function, this is the virtual function",
+                  "type":"object",
+                  "properties": {
+                    "owner": {
+                      "description":"the artifact defining the function, such as the fully classified name of a class declaring a method",
+                      "type":"string"
+                    },
+                    "name": {
+                      "description":"the name of the function",
+                      "type":"regex"
+                    },
+                    "signature": {
+                      "description":"the signature or descriptor of the function",
+                      "type":"string",
+                      "format":"regex"
+                    }
+                  }
+                },
+                "entityRef": {
+                  "description":"the entity reference at a call site, this, return or arg",
+                  "type":"string",
+                  "enum": ["this", "return", "arg"]
+                },
+                "entityRefIndex": {
+                  "description":"the index of an argument, only to be used if the value of entityRef is arg, otherwise should be set to -1. argument indexing starts with 0.",
+                  "type":"integer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "entity-mappings": {
+      "description":"associates data encountered during program execution with entities",
+      "type":"array"
+    }
+  }
+}
