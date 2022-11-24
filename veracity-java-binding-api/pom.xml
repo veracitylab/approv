@@ -5,7 +5,7 @@
   <artifactId>java-binding</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>mayan-numbers</name>
+  <name>java-binding</name>
   <url>https://github.com/veracitylab/approv</url>
 
   <properties>
@@ -26,6 +26,12 @@
           <groupId>org.json</groupId>
           <artifactId>json</artifactId>
           <version>20220924</version>
+      </dependency>
+      <dependency>
+          <groupId>com.networknt</groupId>
+          <artifactId>json-schema-validator</artifactId>
+          <version>1.0.73</version>
+          <scope>test</scope>
       </dependency>
       <dependency>
           <groupId>org.junit.jupiter</groupId>
