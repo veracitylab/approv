@@ -42,7 +42,8 @@
                       "type":"string",
                       "format":"regex"
                     }
-                  }
+                  },
+                  "required": ["owner", "name"]
                 },
                 "entityRef": {
                   "description":"the entity reference at a call site, this, return or arg",
@@ -52,7 +53,8 @@
                 "entityRefIndex": {
                   "description":"the index of an argument, only to be used if the value of entityRef is arg, otherwise should be set to -1. argument indexing starts with 0.",
                   "type":"integer"
-                }
+                },
+                "required": ["call", "entityRef"]
               }
             }
           }
