@@ -56,10 +56,12 @@
                 },
                 "required": ["call", "entityRef"]
               }
-            }
+            },
+            "minItems": 1
           }
         }
-      }
+      },
+      "minItems": 1
     },
     "entity-mappings": {
       "description":"associates data encountered during program execution with entities",
