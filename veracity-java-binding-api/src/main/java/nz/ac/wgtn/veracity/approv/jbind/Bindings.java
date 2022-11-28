@@ -5,6 +5,8 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import java.net.URI;
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Main API entry point.
@@ -32,6 +34,34 @@ public class Bindings {
             x.printStackTrace();
         }
     }
+
+
+    // API methods start here
+    public static Set<ActivityMapping> getActivityMappings() {
+        return activityMappings;
+    }
+
+
+    /**
+     * Baseline method, not efficient at the moment.
+     * @param calleeOwner
+     * @param calleeName
+     * @param calleeDescriptor
+     * @return
+     */
+    public static Set<URI> getActivities (String calleeOwner, String calleeName,String calleeDescriptor) {
+        Predicate<Execution> executionFilter = exe ->
+            Objects.equals(exe.getOwner(),calleeOwner) &&
+            Objects.equals(exe.getName(),calleeName) &&
+            Objects.equals(exe.getDescriptor(),calleeDescriptor);
+
+        return getActivityMappings().stream()
+            .filter(m -> m.getExecutions().stream().anyMatch(executionFilter))
+            .map(m -> m.getActivity())
+            .collect(Collectors.toSet());
+    }
+    // API methods end here
+
 
     private static void parseBindings() throws Exception {
         Set<ActivityMapping> activityMappings2 = new HashSet<>();
@@ -89,8 +119,6 @@ public class Bindings {
         }
     }
 
-    public static Set<ActivityMapping> getActivityMappings() {
-        return activityMappings;
-    }
+
 
 }

@@ -10,12 +10,12 @@
         "type": "object",
         "properties": {
           "activity": {
-            "description":"a reference to an activity type defines in approv",
+            "description":"a reference to an activity type defined in approv",
             "type":"string",
             "format":"uri"
           },
           "group": {
-            "description":"binding scan be grouped, for instance bindings related to database access can be placed into one group",
+            "description":"bindings can be grouped, for instance bindings related to database access can be placed into one group",
             "type":"string"
           },
           "executions": {
@@ -65,7 +65,71 @@
     },
     "entity-mappings": {
       "description":"associates data encountered during program execution with entities",
-      "type":"array"
+      "type":"array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "entity": {
+            "description":"a reference to an entity type defined in approv",
+            "type":"string",
+            "format":"uri"
+          },
+          "group": {
+            "description":"bindings can be grouped, for instance bindings related to database access can be placed into one group",
+            "type":"string"
+          },
+          "executions": {
+            "description":"this defines the datapoint at executions to be mapped",
+            "type":"array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "call": {
+                  "description":"the execution of a function -- for virtual function, this is the virtual function",
+                  "type":"object",
+                  "properties": {
+                    "owner": {
+                      "description":"the artifact defining the function, such as the fully classified name of a class declaring a method",
+                      "type":"string"
+                    },
+                    "name": {
+                      "description":"the name of the function",
+                      "type":"string",
+                      "format": "regex"
+                    },
+                    "signature": {
+                      "description":"the signature or descriptor of the function",
+                      "type":"string",
+                      "format":"regex"
+                    }
+                  },
+                  "required": ["owner", "name"]
+                },
+                "entityId": {
+                  "description":"the entity reference at a call site, this, return or arg, this is the value to be tracked",
+                  "type":"string",
+                  "enum": ["this", "return", "arg"]
+                },
+                "entityIdIndex": {
+                  "description":"the index of an argument, only to be used if the value of entityRef is arg, otherwise should be set to -1. argument indexing starts with 0.",
+                  "type":"integer"
+                },
+                "entityName": {
+                  "description":"information at the callsite used as name",
+                  "type":"string",
+                  "enum": ["this", "return", "arg"]
+                },
+                "required": ["call", "entityRef","nameRef"]
+              },
+              "required": ["call", "entityId"]
+            },
+            "entityNameIndex": {
+              "description":"the index of an argument, only to be used if the value of entityRef is arg, otherwise should be set to -1. argument indexing starts with 0.",
+              "type":"integer"
+            }
+          }
+        },
+      "minItems": 1
     }
   }
 }
