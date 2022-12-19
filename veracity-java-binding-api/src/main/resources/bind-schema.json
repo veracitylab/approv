@@ -45,16 +45,7 @@
                   },
                   "required": ["owner", "name"]
                 },
-                "entityRef": {
-                  "description":"the entity reference at a call site, this, return or arg",
-                  "type":"string",
-                  "enum": ["this", "return", "arg"]
-                },
-                "entityRefIndex": {
-                  "description":"the index of an argument, only to be used if the value of entityRef is arg, otherwise should be set to -1. argument indexing starts with 0.",
-                  "type":"integer"
-                },
-                "required": ["call", "entityRef"]
+                "required": ["call"]
               }
             },
             "minItems": 1
@@ -78,58 +69,56 @@
             "description":"bindings can be grouped, for instance bindings related to database access can be placed into one group",
             "type":"string"
           },
-          "executions": {
-            "description":"this defines the datapoint at executions to be mapped",
-            "type":"array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "call": {
-                  "description":"the execution of a function -- for virtual function, this is the virtual function",
-                  "type":"object",
-                  "properties": {
-                    "owner": {
-                      "description":"the artifact defining the function, such as the fully classified name of a class declaring a method",
-                      "type":"string"
-                    },
-                    "name": {
-                      "description":"the name of the function",
-                      "type":"string",
-                      "format": "regex"
-                    },
-                    "signature": {
-                      "description":"the signature or descriptor of the function",
-                      "type":"string",
-                      "format":"regex"
-                    }
-                  },
-                  "required": ["owner", "name"]
-                },
-                "entityId": {
-                  "description":"the entity reference at a call site, this, return or arg, this is the value to be tracked",
-                  "type":"string",
-                  "enum": ["this", "return", "arg"]
-                },
-                "entityIdIndex": {
-                  "description":"the index of an argument, only to be used if the value of entityRef is arg, otherwise should be set to -1. argument indexing starts with 0.",
-                  "type":"integer"
-                },
-                "entityName": {
-                  "description":"information at the callsite used as name",
-                  "type":"string",
-                  "enum": ["this", "return", "arg"]
-                },
-                "required": ["call", "entityRef","nameRef"]
+          
+          "call": {
+            "description":"the execution of a function -- for virtual function, this is the virtual function",
+            "type":"object",
+            "properties": {
+              "owner": {
+                "description":"the artifact defining the function, such as the fully classified name of a class declaring a method",
+                "type":"string"
               },
-              "required": ["call", "entityId"]
+              "name": {
+                "description":"the name of the function",
+                "type":"string",
+                "format": "regex"
+              },
+              "signature": {
+                "description":"the signature or descriptor of the function",
+                "type":"string",
+                "format":"regex"
+              }
             },
-            "entityNameIndex": {
-              "description":"the index of an argument, only to be used if the value of entityRef is arg, otherwise should be set to -1. argument indexing starts with 0.",
-              "type":"integer"
-            }
+            "required": ["owner", "name"]
+          },
+          "source": {
+            "description":"the entity reference at a call site, this, return or arg, this is the value to be tracked",
+            "type":"string",
+            "enum": ["this", "return", "arg"]
+          },
+          "sourceIndex": {
+            "description":"the index of an argument, only to be used if the value of source is arg, otherwise should be set to -1. argument indexing starts with 0.",
+            "type":"integer"
+          },
+          "target": {
+            "description":"the entity reference at a call site, this, return or arg, after the call, the entity id will be associated with the object or value referenced here",
+            "type":"string",
+            "enum": ["this", "return", "arg"]
+          },
+          "targetIndex": {
+            "description":"the index of an argument, only to be used if the value of target is arg, otherwise should be set to -1. argument indexing starts with 0.",
+            "type":"integer"
+          },
+          "create": {
+            "description":"true if a new entity id is to be created, default is false",
+            "type":"boolean",
+            "default":"false"
+
+          },
+          "required": ["call", "source","target","targetIndex"]
           }
-        },
-      "minItems": 1
+        }
+      }
     }
   }
 }

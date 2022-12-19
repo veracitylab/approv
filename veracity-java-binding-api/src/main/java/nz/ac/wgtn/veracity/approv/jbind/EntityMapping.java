@@ -10,16 +10,21 @@ import java.util.Objects;
  */
 public class EntityMapping {
 
-    private URI activity = null;
+    private URI entity = null;
     private String group = null;
-    private List<Execution> executions = null;
+    private Execution execution = null;
+    private EntityRef source = null;
+    private int sourceIndex = -1;
+    private EntityRef target = null;
+    private int targetIndex = -1;
+    private boolean create = false;
 
-    public URI getActivity() {
-        return activity;
+    public URI getEntity() {
+        return entity;
     }
 
-    public void setActivity(URI activity) {
-        this.activity = activity;
+    public void setEntity(URI activity) {
+        this.entity = activity;
     }
 
     public String getGroup() {
@@ -30,12 +35,52 @@ public class EntityMapping {
         this.group = group;
     }
 
-    public List<Execution> getExecutions() {
-        return executions;
+    public Execution getExecution() {
+        return execution;
     }
 
-    public void setExecutions(List<Execution> executions) {
-        this.executions = executions;
+    public void setExecution(Execution execution) {
+        this.execution = execution;
+    }
+
+    public EntityRef getSource() {
+        return source;
+    }
+
+    public void setSource(EntityRef source) {
+        this.source = source;
+    }
+
+    public int getSourceIndex() {
+        return sourceIndex;
+    }
+
+    public void setSourceIndex(int sourceIndex) {
+        this.sourceIndex = sourceIndex;
+    }
+
+    public EntityRef getTarget() {
+        return target;
+    }
+
+    public void setTarget(EntityRef target) {
+        this.target = target;
+    }
+
+    public int getTargetIndex() {
+        return targetIndex;
+    }
+
+    public void setTargetIndex(int targetIndex) {
+        this.targetIndex = targetIndex;
+    }
+
+    public boolean isCreate() {
+        return create;
+    }
+
+    public void setCreate(boolean create) {
+        this.create = create;
     }
 
     @Override
@@ -43,11 +88,11 @@ public class EntityMapping {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EntityMapping that = (EntityMapping) o;
-        return Objects.equals(activity, that.activity) && Objects.equals(group, that.group) && Objects.equals(executions, that.executions);
+        return sourceIndex == that.sourceIndex && targetIndex == that.targetIndex && create == that.create && Objects.equals(entity, that.entity) && Objects.equals(group, that.group) && Objects.equals(execution, that.execution) && source == that.source && target == that.target;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(activity, group, executions);
+        return Objects.hash(entity, group, execution, source, sourceIndex, target, targetIndex, create);
     }
 }

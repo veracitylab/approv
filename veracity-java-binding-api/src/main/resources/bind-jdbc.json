@@ -9,22 +9,19 @@
           "call": {
             "owner": "java.sql.DriverManager",
             "name": "getConnection"
-          },
-          "entityRef": "return"
+          }
         },
         {
           "call": {
             "owner": "java.sql.Statement",
             "name": "execute*"
-          },
-          "entityRef": "this"
+          }
         },
         {
           "call": {
             "owner": "java.sql.PreparedStatement",
             "name": "execute*"
-          },
-          "entityRef": "this"
+          }
         }
       ]
     },
@@ -37,31 +34,27 @@
             "owner": "java.sql.ResultSet",
             "name": "next",
             "signature":"()Z"
-          },
-          "entityRef": "this"
+          }
         },
         {
           "call": {
             "owner": "java.sql.ResultSet",
             "name": "get*"
-          },
-          "entityRef": "this"
+          }
         },
         {
           "call": {
             "owner": "java.sql.Statement",
             "name": "executeQuery",
             "signature":"()Ljava/sql/ResultSet;"
-          },
-          "entityRef": "this"
+          }
         },
         {
           "call": {
             "owner": "java.sql.PreparedStatement",
             "name": "executeQuery",
             "signature":"()Ljava/sql/ResultSet;"
-          },
-          "entityRef": "this"
+          }
         }
       ]
     },
@@ -74,18 +67,38 @@
             "owner": "java.sql.Statement",
             "name": "executeUpdate*",
             "signature":"()I"
-          },
-          "entityRef": "this"
+          }
         },
         {
           "call": {
             "owner": "java.sql.PreparedStatement",
             "name": "executeUpdate",
             "signature":"()I"
-          },
-          "entityRef": "this"
+          }
         }
       ]
+    }
+  ],
+  "entity-mappings" : [
+    {
+      "activity": "https://veracity.wgtn.ac.nz/app-provenance#Database",
+      "group": "jdbc",
+       "call": {
+         "owner": "java.sql.DriverManager",
+         "name": "getConnection"
+       },
+      "source": "arg",
+      "sourceIndex": 0,
+      "target": "return",
+      "create":true
+    },
+    {
+       "call": {
+         "owner": "java.sql.Connection",
+         "name": "createStatement"
+       },
+      "source": "this",
+      "target": "return"
     }
   ]
 

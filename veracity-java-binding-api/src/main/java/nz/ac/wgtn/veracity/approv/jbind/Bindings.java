@@ -4,7 +4,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import java.net.URI;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Collections;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -35,12 +40,10 @@ public class Bindings {
         }
     }
 
-
     // API methods start here
     public static Set<ActivityMapping> getActivityMappings() {
         return activityMappings;
     }
-
 
     /**
      * Baseline method, not efficient at the moment.
@@ -50,15 +53,16 @@ public class Bindings {
      * @return
      */
     public static Set<URI> getActivities (String calleeOwner, String calleeName,String calleeDescriptor) {
-        Predicate<Execution> executionFilter = exe ->
+        final Predicate<? super Execution> executionFilter = exe ->
             Objects.equals(exe.getOwner(),calleeOwner) &&
             Objects.equals(exe.getName(),calleeName) &&
             Objects.equals(exe.getDescriptor(),calleeDescriptor);
 
-        return getActivityMappings().stream()
+        Set<URI> collect = getActivityMappings().stream()
             .filter(m -> m.getExecutions().stream().anyMatch(executionFilter))
             .map(m -> m.getActivity())
             .collect(Collectors.toSet());
+        return collect;
     }
     // API methods end here
 
@@ -87,16 +91,50 @@ public class Bindings {
                     if (jCall.has("signature")) {
                         execution.setDescriptor(jCall.getString("signature"));
                     }
-                    execution.setEntityRef(mapEntity(jExecution.getString("entityRef")));
-                    if (jExecution.has("entityRefIndex")) {
-                        execution.setEntityRefIndex(jExecution.getInt("entityRefIndex"));
-                    }
                     executions.add(execution);
                 }
                 map.setExecutions(Collections.unmodifiableList(executions));
                 activityMappings2.add(map);
             }
+
+            JSONArray jEntityMappings = jRoot.getJSONArray("entity-mappings");
+            for (int i=0;i<jEntityMappings.length();i++) {
+                JSONObject jEntityMapping = jEntityMappings.getJSONObject(i);
+                System.out.println(jEntityMapping);
+                EntityMapping map = new EntityMapping();
+                map.setEntity(new URI(jEntityMapping.getString("entity")));
+                map.setGroup(jEntityMapping.getString("group"));
+
+                JSONObject jExecution = jEntityMapping.getJSONObject("call");
+                Execution execution = new Execution();
+                JSONObject jCall = jExecution.getJSONObject("call");
+                execution.setOwner(jCall.getString("owner"));
+                execution.setName(jCall.getString("name"));
+                if (jCall.has("signature")) {
+                    execution.setDescriptor(jCall.getString("signature"));
+                }
+                map.setExecution(execution);
+
+                if (jEntityMapping.has("source")) {
+                    map.setSource(EntityRef.valueOf(jEntityMapping.getString("source")));
+                }
+                if (jEntityMapping.has("target")) {
+                    map.setTarget(EntityRef.valueOf(jEntityMapping.getString("target")));
+                }
+                if (jEntityMapping.has("sourceIndex")) {
+                    map.setSourceIndex(jEntityMapping.getInt("sourceIndex"));
+                }
+                if (jEntityMapping.has("targetIndex")) {
+                    map.setTargetIndex(jEntityMapping.getInt("targetIndex"));
+                }
+                if (jEntityMapping.has("create")) {
+                    map.setCreate(jEntityMapping.getBoolean("create"));
+                }
+
+                // todo source / target / create
+            }
         }
+
 
         activityMappings = Collections.unmodifiableSet(activityMappings2);
     }
