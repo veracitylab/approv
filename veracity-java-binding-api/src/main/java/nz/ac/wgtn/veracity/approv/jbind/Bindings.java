@@ -56,20 +56,56 @@ public class Bindings {
      * @param calleeDescriptor
      * @return
      */
+    // @TODO optimise access (create index, hashmap etc)
     public static Set<URI> getActivities (String calleeOwner, String calleeName,String calleeDescriptor) {
-        final Predicate<? super Execution> executionFilter = exe ->
-            Objects.equals(exe.getOwner(),calleeOwner) &&
-            Objects.equals(exe.getName(),calleeName) &&
-            Objects.equals(exe.getDescriptor(),calleeDescriptor);
 
         Set<URI> collect = getActivityMappings().stream()
-            .filter(m -> m.getExecutions().stream().anyMatch(executionFilter))
+            .filter(m -> m.getExecutions().stream().anyMatch(exe->exe.matches(calleeOwner,calleeName,calleeDescriptor)))
             .map(m -> m.getActivity())
             .collect(Collectors.toSet());
         return collect;
     }
-    // API methods end here
 
+    /**
+     * Get instructions to create entities at a call site.
+     * An instruction specifies which data to take from a callsite (arg, return, this), and the
+     * type of entity to create.
+     * @param calleeOwner
+     * @param calleeName
+     * @param calleeDescriptor
+     * @return
+     */
+    // @TODO optimise access (create index, hashmap etc)
+    public static Set<EntityCreation> getEntityCreations (String calleeOwner, String calleeName,String calleeDescriptor) {
+        Set<EntityCreation> collect = getEntityMappings().stream()
+            .filter(m -> m.getExecution().matches(calleeOwner,calleeName,calleeDescriptor))
+            .filter(m -> m.isCreate())
+            .map(m -> new EntityCreation(m.getEntity(),m.getSource(),m.getSourceIndex()))
+            .collect(Collectors.toSet());
+        return collect;
+    }
+
+    /**
+     * Get instructions to transfer entities at a call site.
+     * An instruction specifies how an already created entity associated with an object is propagated to another object,
+     * for instance, from the first argument of a method call to the return type.
+     * Propagation means that at the end, the enity is associated with an additional object.
+     * @param calleeOwner
+     * @param calleeName
+     * @param calleeDescriptor
+     * @return
+     */
+    // @TODO optimise access (create index, hashmap etc)
+    public static Set<EntityPropagation> getEntityPropagations (String calleeOwner, String calleeName,String calleeDescriptor) {
+        Set<EntityPropagation> collect = getEntityMappings().stream()
+            .filter(m -> m.getExecution().matches(calleeOwner,calleeName,calleeDescriptor))
+            .filter(m -> !m.isCreate())
+            .map(m -> new EntityPropagation(m.getSource(),m.getSourceIndex(),m.getTarget(),m.getTargetIndex()))
+            .collect(Collectors.toSet());
+        return collect;
+    }
+
+    // API methods end here
 
     private static void parseBindings() throws Exception {
         Set<ActivityMapping> activityMappings2 = new HashSet<>();

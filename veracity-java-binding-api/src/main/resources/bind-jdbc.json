@@ -26,7 +26,7 @@
       ]
     },
     {
-      "activity": "approve:DBRead",
+      "activity": "https://veracity.wgtn.ac.nz/app-provenance#DBRead",
       "group": "jdbc",
       "executions": [
         {
@@ -59,7 +59,7 @@
       ]
     },
     {
-      "activity": "approve:DBWrite",
+      "activity": "https://veracity.wgtn.ac.nz/app-provenance#DBWrite",
       "group": "jdbc",
       "executions": [
         {

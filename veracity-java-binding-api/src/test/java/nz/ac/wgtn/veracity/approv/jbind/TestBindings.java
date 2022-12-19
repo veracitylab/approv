@@ -3,6 +3,9 @@ package nz.ac.wgtn.veracity.approv.jbind;
 import org.junit.jupiter.api.Test;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestBindings {
@@ -12,12 +15,32 @@ public class TestBindings {
     }
 
     @Test
+    public void testActivityMapping1() throws URISyntaxException {
+        Set<URI> activites = Bindings.getActivities("java.sql.DriverManager","getConnection",null);
+        assertEquals(1,activites.size());
+        assertEquals(activites.iterator().next(),new URI("https://veracity.wgtn.ac.nz/app-provenance#DBAccess"));
+    }
+
+    @Test
+    public void testActivityMapping2() throws URISyntaxException {
+        Set<URI> activites = Bindings.getActivities("java.sql.PreparedStatement","executeUpdate","()I");
+        assertEquals(1,activites.size());
+        assertEquals(activites.iterator().next(),new URI("https://veracity.wgtn.ac.nz/app-provenance#DBWrite"));
+    }
+
+    @Test
+    public void testActivityMapping3() throws URISyntaxException {
+        Set<URI> activites = Bindings.getActivities("java.sql.PreparedStatement","executeUpdate","(J)I");
+        assertEquals(0,activites.size()); // wrong descriptor !
+    }
+
+    @Test
     public void testEntityMappings() {
         assertTrue(0<Bindings.getEntityMappings().size());
     }
 
     @Test
-    public void testEntityMapping1() throws URISyntaxException {
+    public void testEntityMappingRaw1() throws URISyntaxException {
         EntityMapping map = new EntityMapping();
         map.setEntity(new URI("https://veracity.wgtn.ac.nz/app-provenance#Database"));
         map.setGroup("jdbc");
@@ -34,7 +57,7 @@ public class TestBindings {
     }
 
     @Test
-    public void testEntityMapping2() throws URISyntaxException {
+    public void testEntityMappingRaw2() throws URISyntaxException {
         EntityMapping map = new EntityMapping();
         Execution execution = new Execution();
         execution.setOwner("java.sql.Connection");

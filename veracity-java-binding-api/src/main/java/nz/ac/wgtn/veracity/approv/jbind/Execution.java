@@ -35,6 +35,24 @@ public class Execution {
         this.descriptor = descriptor;
     }
 
+
+    public boolean matches (String owner,String name,String descriptor) {
+        if (!Objects.equals(this.owner,owner)) {
+            return false;
+        }
+
+        // TODO - wildcard support
+        if (!Objects.equals(this.name,name)) {
+            return false;
+        }
+
+        if (descriptor==null) {
+            return true; // optional
+        }
+
+        return Objects.equals(this.descriptor,descriptor);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
