@@ -29,7 +29,7 @@ public class Bindings {
     };
 
     private static Set<ActivityMapping> activityMappings = null;
-
+    private static Set<EntityMapping> entityMappings = null;
     static {
         try {
             parseBindings();
@@ -43,6 +43,10 @@ public class Bindings {
     // API methods start here
     public static Set<ActivityMapping> getActivityMappings() {
         return activityMappings;
+    }
+
+    public static Set<EntityMapping> getEntityMappings() {
+        return entityMappings;
     }
 
     /**
@@ -69,6 +73,7 @@ public class Bindings {
 
     private static void parseBindings() throws Exception {
         Set<ActivityMapping> activityMappings2 = new HashSet<>();
+        Set<EntityMapping> entityMappings2 = new HashSet<>();
         for (String resource:BINDING_DEFS) {
             JSONTokener tokener = new JSONTokener(Bindings.class.getResourceAsStream(resource));
             JSONObject jRoot = new JSONObject(tokener);
@@ -102,12 +107,15 @@ public class Bindings {
                 JSONObject jEntityMapping = jEntityMappings.getJSONObject(i);
                 System.out.println(jEntityMapping);
                 EntityMapping map = new EntityMapping();
-                map.setEntity(new URI(jEntityMapping.getString("entity")));
-                map.setGroup(jEntityMapping.getString("group"));
+                if (jEntityMapping.has("entity")) {
+                    map.setEntity(new URI(jEntityMapping.getString("entity")));
+                }
+                if (jEntityMapping.has("group")) {
+                    map.setGroup(jEntityMapping.getString("group"));
+                }
 
-                JSONObject jExecution = jEntityMapping.getJSONObject("call");
+                JSONObject jCall = jEntityMapping.getJSONObject("call");
                 Execution execution = new Execution();
-                JSONObject jCall = jExecution.getJSONObject("call");
                 execution.setOwner(jCall.getString("owner"));
                 execution.setName(jCall.getString("name"));
                 if (jCall.has("signature")) {
@@ -116,10 +124,10 @@ public class Bindings {
                 map.setExecution(execution);
 
                 if (jEntityMapping.has("source")) {
-                    map.setSource(EntityRef.valueOf(jEntityMapping.getString("source")));
+                    map.setSource(mapEntity(jEntityMapping.getString("source")));
                 }
                 if (jEntityMapping.has("target")) {
-                    map.setTarget(EntityRef.valueOf(jEntityMapping.getString("target")));
+                    map.setTarget(mapEntity(jEntityMapping.getString("target")));
                 }
                 if (jEntityMapping.has("sourceIndex")) {
                     map.setSourceIndex(jEntityMapping.getInt("sourceIndex"));
@@ -131,12 +139,12 @@ public class Bindings {
                     map.setCreate(jEntityMapping.getBoolean("create"));
                 }
 
-                // todo source / target / create
+                entityMappings2.add(map);
             }
         }
-
-
         activityMappings = Collections.unmodifiableSet(activityMappings2);
+        entityMappings = Collections.unmodifiableSet(entityMappings2);
+
     }
 
     private static EntityRef mapEntity(String entity) {

@@ -81,7 +81,7 @@
   ],
   "entity-mappings" : [
     {
-      "activity": "https://veracity.wgtn.ac.nz/app-provenance#Database",
+      "entity": "https://veracity.wgtn.ac.nz/app-provenance#Database",
       "group": "jdbc",
        "call": {
          "owner": "java.sql.DriverManager",
