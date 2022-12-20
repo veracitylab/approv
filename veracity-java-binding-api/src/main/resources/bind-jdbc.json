@@ -16,12 +16,6 @@
             "owner": "java.sql.Statement",
             "name": "execute*"
           }
-        },
-        {
-          "call": {
-            "owner": "java.sql.PreparedStatement",
-            "name": "execute*"
-          }
         }
       ]
     },

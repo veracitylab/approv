@@ -1,6 +1,7 @@
 package nz.ac.wgtn.veracity.approv.jbind;
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 /**
  * Describes an execution, i.e. a method invocation.
@@ -9,7 +10,9 @@ import java.util.Objects;
 public class Execution {
     private String owner = null;
     private String name = null;
+    private Pattern namePattern = null;
     private String descriptor = null;
+    private Pattern descriptorPattern = null;
 
     public String getOwner() {
         return owner;
@@ -25,6 +28,7 @@ public class Execution {
 
     public void setName(String name) {
         this.name = name;
+        this.namePattern = isPattern(name) ? RegExUtil.glob2regex(name) : null;
     }
 
     public String getDescriptor() {
@@ -33,24 +37,44 @@ public class Execution {
 
     public void setDescriptor(String descriptor) {
         this.descriptor = descriptor;
+        this.descriptorPattern = isPattern(descriptor) ? RegExUtil.glob2regex(descriptor) : null;
     }
 
+    private boolean isPattern(String s) {
+        return s.contains("?") || s.contains("*");
+    }
 
     public boolean matches (String owner,String name,String descriptor) {
-        if (!Objects.equals(this.owner,owner)) {
+
+        if (!Objects.equals(this.owner, owner)) {
             return false;
         }
 
-        // TODO - wildcard support
-        if (!Objects.equals(this.name,name)) {
-            return false;
+        if (this.namePattern==null) {
+            // name not set means it matches anything
+            if (this.name!=null &&  !Objects.equals(this.name, name)) {
+                return false;
+            }
+        }
+        else {
+            if (!namePattern.matcher(name).matches()) {
+                return false;
+            }
         }
 
-        if (descriptor==null) {
-            return true; // optional
+        if (this.descriptorPattern==null) {
+            // descriptor not set means it matches anything
+            if (this.descriptor!=null && !Objects.equals(this.descriptor, descriptor)) {
+                return false;
+            }
+        }
+        else {
+            if (!descriptorPattern.matcher(name).matches()) {
+                return false;
+            }
         }
 
-        return Objects.equals(this.descriptor,descriptor);
+        return true;
     }
 
     @Override

@@ -34,6 +34,16 @@ public class TestBindings {
         assertEquals(0,activites.size()); // wrong descriptor !
     }
 
+    // this def has wildcards
+    @Test
+    public void testActivityMapping4() throws URISyntaxException {
+        Set<URI> activites = Bindings.getActivities("java.sql.ResultSet","getInt","(I)I");
+        assertEquals(1,activites.size()); // wrong descriptor !
+        assertEquals(activites.iterator().next(),new URI("https://veracity.wgtn.ac.nz/app-provenance#DBRead"));
+
+    }
+
+
     @Test
     public void testEntityMappings() {
         assertTrue(0<Bindings.getEntityMappings().size());
