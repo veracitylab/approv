@@ -6,7 +6,8 @@ Note that currently there is no build-in runtime API to validate binding definit
 is particularly important as this component should be usable in agents, instrumenting arbitrary programs. Therefore, dependencies must be minimised to avoid versioning conflicts,
 and preferably inlined. 
 
-At the moment, bindings are hardcoded as resources. This could be changed later to a mechanism that allows plugins via the service loader mechanism. 
+Bindings are provided by *ActivityMappingProviders* and *EntityMappingProviders*, respectively. Those correspond to interface, with default implementations
+which load binding definitions from resources, such as `/bind-jdbc.json`. Providers are registered as service (see `src/main/resources/META-INF/services`), and additional such services can be registered as plugins. 
 
 ## Concepts
 

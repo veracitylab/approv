@@ -49,7 +49,7 @@ public class TestValidityOfBindings {
     }
 
     private static Stream<String> _bindings () {
-        return Stream.of(Bindings.BINDING_DEFS);
+        return Stream.of(DefaultMappingSources.BINDING_DEFS);
     }
 
 }
