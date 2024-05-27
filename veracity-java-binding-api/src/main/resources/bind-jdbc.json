@@ -2,6 +2,30 @@
   "version": "1.0.0",
   "activity-mappings": [
     {
+      "activity": "https://veracity.wgtn.ac.nz/app-provenance#MakeHttpRequest",
+      "group": "http",
+      "executions": [
+        {
+          "call": {
+            "owner": "java.net.URL",
+            "name": "openConnection"
+          }
+        }
+      ]
+    },
+    {
+      "activity": "https://veracity.wgtn.ac.nz/app-provenance#DummyStaticMethod",
+      "group": "dummy",
+      "executions": [
+        {
+          "call": {
+            "owner": "nz.ac.canterbury.dataprovenancedemo.DummyClassForTestingProvenance",
+            "name": "dummyStaticMethod"
+          }
+        }
+      ]
+    },
+    {
       "activity": "https://veracity.wgtn.ac.nz/app-provenance#DBAccess",
       "group": "jdbc",
       "executions": [
@@ -74,6 +98,18 @@
     }
   ],
   "entity-mappings" : [
+    {
+      "entity": "https://veracity.wgtn.ac.nz/app-provenance#HttpRequest",
+      "group": "http",
+      "executions": [
+        {
+          "call": {
+            "owner": "java.net.URL",
+            "name": "openConnection"
+          }
+        }
+      ]
+    },
     {
       "entity": "https://veracity.wgtn.ac.nz/app-provenance#Database",
       "group": "jdbc",
