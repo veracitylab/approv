@@ -101,10 +101,14 @@
     {
       "entity": "https://veracity.wgtn.ac.nz/app-provenance#HttpRequest",
       "group": "http",
-        "call": {
-          "owner": "java.net.URL",
-          "name": "openConnection"
-        }
+      "call": {
+        "owner": "java.net.URL",
+        "name": "openConnection"
+      },
+      "source": "arg",
+      "sourceIndex": 0,
+      "target": "return",
+      "create": true
     },
     {
       "entity": "https://veracity.wgtn.ac.nz/app-provenance#Database",
