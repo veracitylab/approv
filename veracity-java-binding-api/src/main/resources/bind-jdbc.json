@@ -38,6 +38,30 @@
       ]
     },
     {
+      "activity": "https://veracity.wgtn.ac.nz/app-provenance#DBGetDriver",
+      "group": "jdbc",
+      "executions": [
+        {
+          "call": {
+            "owner": "java.sql.DriverManager",
+            "name": "getDriver"
+          }
+        }
+      ]
+    },
+    {
+      "activity": "https://veracity.wgtn.ac.nz/app-provenance#DBGetDrivers",
+      "group": "jdbc",
+      "executions": [
+        {
+          "call": {
+            "owner": "java.sql.DriverManager",
+            "name": "getDrivers"
+          }
+        }
+      ]
+    },
+    {
       "activity": "https://veracity.wgtn.ac.nz/app-provenance#DBAccess",
       "group": "jdbc",
       "executions": [
@@ -117,6 +141,18 @@
       "create": true
     },
     {
+      "entity": "https://veracity.wgtn.ac.nz/app-provenance#DummyStaticMethodArg",
+      "group": "dummy",
+      "call": {
+        "owner": "nz.ac.canterbury.dataprovenancedemo.DummyClassForTestingProvenance",
+        "name": "dummyStaticMethod"
+      },
+      "source": "arg",
+      "sourceIndex": 0,
+      "target": "return",
+      "create": true
+    },
+    {
       "entity": "https://veracity.wgtn.ac.nz/app-provenance#Database",
       "group": "jdbc",
       "call": {
@@ -127,6 +163,18 @@
       "sourceIndex": 0,
       "target": "return",
       "create":true
+    },
+    {
+      "entity": "https://veracity.wgtn.ac.nz/app-provenance#DBDriver",
+      "group": "jdbc",
+      "call": {
+        "owner": "java.sql.DriverManager",
+        "name": "getDriver"
+      },
+      "source": "arg",
+      "sourceIndex": 0,
+      "target": "return",
+      "create": true
     },
     {
       "call": {
