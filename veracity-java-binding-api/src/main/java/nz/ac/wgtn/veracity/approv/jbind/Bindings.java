@@ -67,7 +67,7 @@ public class Bindings {
         Set<EntityCreation> collect = getEntityMappings().stream()
             .filter(m -> m.getExecution().matches(calleeOwner,calleeName,calleeDescriptor))
             .filter(m -> m.isCreate())
-            .map(m -> new EntityCreation(m.getEntity(),m.getSource(),m.getSourceIndex()))
+            .map(m -> new EntityCreation(m.getEntity(), m.getSource(), m.getSourceIndex(), m.getTarget(), m.getTargetIndex()))
             .collect(Collectors.toSet());
         return collect;
     }
