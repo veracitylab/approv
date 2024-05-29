@@ -18,14 +18,14 @@ public class TestBindings {
     public void testActivityMapping1() throws URISyntaxException {
         Set<URI> activites = Bindings.getActivities("java.sql.DriverManager","getConnection",null);
         assertEquals(1,activites.size());
-        assertEquals(activites.iterator().next(),new URI("https://veracity.wgtn.ac.nz/app-provenance#DBAccess"));
+        assertEquals(new URI("https://veracity.wgtn.ac.nz/app-provenance#DBAccess"), activites.iterator().next());
     }
 
     @Test
     public void testActivityMapping2() throws URISyntaxException {
         Set<URI> activites = Bindings.getActivities("java.sql.PreparedStatement","executeUpdate","()I");
         assertEquals(1,activites.size());
-        assertEquals(activites.iterator().next(),new URI("https://veracity.wgtn.ac.nz/app-provenance#DBWrite"));
+        assertEquals(new URI("https://veracity.wgtn.ac.nz/app-provenance#DBWrite"), activites.iterator().next());
     }
 
     @Test
@@ -39,8 +39,7 @@ public class TestBindings {
     public void testActivityMapping4() throws URISyntaxException {
         Set<URI> activites = Bindings.getActivities("java.sql.ResultSet","getInt","(I)I");
         assertEquals(1,activites.size()); // wrong descriptor !
-        assertEquals(activites.iterator().next(),new URI("https://veracity.wgtn.ac.nz/app-provenance#DBRead"));
-
+        assertEquals(new URI("https://veracity.wgtn.ac.nz/app-provenance#DBRead"), activites.iterator().next());
     }
 
 
