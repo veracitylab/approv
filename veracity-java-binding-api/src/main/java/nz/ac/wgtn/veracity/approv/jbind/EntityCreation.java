@@ -11,25 +11,37 @@ import java.util.Objects;
  */
 public class EntityCreation {
     private URI entity = null;
-    private EntityRef ref = null;
-    private int refIndex = -1;
+    private EntityRef sourceRef = null;
+    private int sourceRefIndex = -1;
+    private EntityRef targetRef = null;
+    private int targetRefIndex = -1;
 
-    public EntityCreation(URI entity, EntityRef ref, int refIndex) {
+    public EntityCreation(URI entity, EntityRef sourceRef, int sourceRefIndex, EntityRef targetRef, int targetRefIndex) {
         this.entity = entity;
-        this.ref = ref;
-        this.refIndex = refIndex;
+        this.sourceRef = sourceRef;
+        this.sourceRefIndex = sourceRefIndex;
+        this.targetRef = targetRef;
+        this.targetRefIndex = targetRefIndex;
     }
 
     public URI getEntity() {
         return entity;
     }
 
-    public EntityRef getRef() {
-        return ref;
+    public EntityRef getSourceRef() {
+        return sourceRef;
     }
 
-    public int getRefIndex() {
-        return refIndex;
+    public int getSourceRefIndex() {
+        return sourceRefIndex;
+    }
+
+    public EntityRef getTargetRef() {
+        return targetRef;
+    }
+
+    public int getTargetRefIndex() {
+        return targetRefIndex;
     }
 
     @Override
@@ -37,11 +49,11 @@ public class EntityCreation {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EntityCreation that = (EntityCreation) o;
-        return refIndex == that.refIndex && Objects.equals(entity, that.entity) && ref == that.ref;
+        return sourceRefIndex == that.sourceRefIndex && targetRefIndex == that.targetRefIndex && Objects.equals(entity, that.entity) && sourceRef == that.sourceRef && targetRef == that.targetRef;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(entity, ref, refIndex);
+        return Objects.hash(entity, sourceRef, sourceRefIndex, targetRef, targetRefIndex);
     }
 }
