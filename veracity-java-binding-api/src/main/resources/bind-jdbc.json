@@ -8,7 +8,7 @@
         {
           "call": {
             "owner": "java.net.URL",
-            "name": "openConnection"
+            "name": "openConnection-DISABLED_SINCE_CAUSES_MANY_FALSE_POSITIVES_DUE_TO_JAR_ACCESSES"
           }
         }
       ]
@@ -145,7 +145,7 @@
       "group": "http",
       "call": {
         "owner": "java.net.URL",
-        "name": "openConnection"
+        "name": "openConnection-DISABLED_SINCE_CAUSES_MANY_FALSE_POSITIVES_DUE_TO_JAR_ACCESSES"
       },
       "source": "arg",
       "sourceIndex": 0,
